@@ -3,8 +3,8 @@ const languageNames = new Intl.DisplayNames(["en"], {
   type: "language",
 });
 const API_KEY = "e316601ca43413563469752bc6096a5b";
-// const TABLE_PATH = "/data/devMovies.csv";
-const TABLE_PATH = "/data/movie_results.csv";
+const TABLE_PATH = "/data/devMovies.csv";
+// const TABLE_PATH = "/data/movie_results.csv";
 const MAX_POPULARITY = 150;
 let barInfoBeingDisplayed = null;
 let twcb;
@@ -86,6 +86,9 @@ class BarChart {
     let movieRegex = new RegExp(this.params.movie, "i");
     let minYear = int(this.params.minYear);
     let maxYear = int(this.params.maxYear);
+    let minRating = float(this.params.minRating);
+    let maxRating = float(this.params.maxRating);
+    let originalLanguage = new RegExp(this.params.originalLanguage, "i")
 
     const result = [];
 
@@ -142,6 +145,27 @@ class BarChart {
               BarChart.getYearString(row.obj.release_date)
             );
             if (yearOfRelease > maxYear) addRow = false;
+          }
+
+
+          if (this.params.minRating) {
+            let rating = float(
+              row.obj.vote_average
+            );
+            if (rating < minRating) addRow = false;
+          }
+
+          if (this.params.maxRating) {
+            let rating = float(
+              row.obj.vote_average
+            );
+            if (rating > maxRating) addRow = false;
+          }
+
+          if(this.params.originalLanguage) {
+            if(!originalLanguage.exec(languageNames.of(row.obj.original_language))) {
+              addRow = false
+            }
           }
 
           if (addRow) {
@@ -687,7 +711,7 @@ class Legend {
           );
         }
         textAlign(LEFT)
-        let ts = int(min(15, 7500 / barInfoBeingDisplayed.overview.length));
+        let ts = int(min(14, 7500 / barInfoBeingDisplayed.overview.length));
         textSize(ts)
         text(barInfoBeingDisplayed.overview, x + 15, y + h + subPadding * 1, w - 30, h + 240);
         textSize(fontSize)
@@ -852,7 +876,7 @@ function untranslateView() {
 }
 
 function mouseWheel(event) {
-  pgPos += event.delta;
+  pgPos -= event.delta;
   pgPos = min(50, pgPos);
 }
 
@@ -987,6 +1011,9 @@ function formSubmit() {
   bc.params.movie = $("#movie").val();
   bc.params.minYear = $("#minYear").val();
   bc.params.maxYear = $("#maxYear").val();
+  bc.params.minRating = $("#minRating").val();
+  bc.params.maxRating = $("#maxRating").val();
+  bc.params.originalLanguage = $("#originalLanguage").val();
   let genresFiltered = [];
   genres.forEach((g) => {
     let boolVal = $("#" + g + "-CheckBox").is(":checked");
