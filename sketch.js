@@ -163,7 +163,11 @@ class BarChart {
           }
 
           if(this.params.originalLanguage) {
-            if(!originalLanguage.exec(languageNames.of(row.obj.original_language))) {
+            try {
+              if(!originalLanguage.exec(languageNames.of(row.obj.original_language))) {
+                addRow = false
+              }
+            } catch {
               addRow = false
             }
           }
