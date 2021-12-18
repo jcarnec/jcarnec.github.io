@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  </head>
+
+  <body style="background-color: rgb(255, 255, 255); font-family: Helvetica; font-size: small;">
+
+    <script  src="sketch.js"></script>
+
+
+  <div class="form-inline" style="padding: 1%;" >
+      <label class="form-inline" for="actor">Name of Actor</label><br>
+      <input class="form-inline" type="text" id="actor"><br>
+
+      <label class="form-inline" for="director">Name of Director</label><br>
+      <input class="form-inline" type="text" id="director"><br>
+
+      <label class="form-inline" for="director">Title of Movie</label><br>
+      <input class="form-inline" type="text" id="movie"><br>
+
+      <label class="form-inline" for="minYear">Minimum Year</label><br>
+      <input class="form-inline" type="text" id="minYear"><br>
+
+      <label class="form-inline" for="minYear">Max Year</label><br>
+      <input class="form-inline" type="text" id="maxYear"><br>
+
+      <button class="form-inline" type="button" onclick="formSubmit()">Filter Movies</button>
+      <div class="form-inline" id="checkBoxDiv" style="padding-top: 1%; padding-right: 3%;"></div>
+
+  </div> 
+  </body>
+
+  <script defer> 
+  loadHTMLCheckboxes()
+  </script>
+</html>

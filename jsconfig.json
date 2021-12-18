@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2020",
+        "jsx": "preserve",
+        "checkJs": true,
+        "strictFunctionTypes": false
+    },
+
+  "include": [
+    "*.js",
+    "*.html",
+    "libraries/*.js",
+    "node_modules/@types/p5/*",
+    "node_modules/@types/jquery"
+  ]
+}
