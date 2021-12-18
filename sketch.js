@@ -4,7 +4,7 @@ const languageNames = new Intl.DisplayNames(["en"], {
 });
 const API_KEY = "e316601ca43413563469752bc6096a5b";
 // const TABLE_PATH = "/data/devMovies.csv";
-const TABLE_PATH = "/data/movies_tmdbMeta.csv";
+const TABLE_PATH = "/data/movie_results.csv";
 const MAX_POPULARITY = 150;
 let barInfoBeingDisplayed = null;
 let twcb;

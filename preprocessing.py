@@ -1,26 +1,16 @@
-import pandas
+import pandas as pd
 import os
 from io import StringIO
 import json
+import csv
 
-directory = '../movies/movies/'
+directory = './data/movies_tmdbMeta.csv'
 
-f = open("movie_results.csv" ,"a+")
+f = open("./data/movie_results.csv" ,"w+")
 i = 0
 
-for filename in os.listdir(directory):
-     with open(directory + filename, 'r', encoding='utf-8') as file:
-          first = False
-          json_result = json.load(file)
-          df = pandas.DataFrame.from_dict(json_result, orient='index').T.set_index('id')
-          columns = len( list(df.items()))
-          if (columns != 24):
-               print("error", columns)
-               break
-          if (i == 0):
-               f.write(df.to_csv(sep=',', encoding='utf-8', header='true'))
-          else:
-               f.write(df.to_csv(sep=',', encoding='utf-8', header=False))
-          i += 1
-          print(i)
+with open(directory, 'r', encoding='utf-8') as csvfile:
+     df = pd.read_csv(directory, low_memory=False)
+     df.drop(df[df.vote_count <= 3].index, inplace=True)
+     df.to_csv(f)
 
