@@ -426,8 +426,8 @@ class Bar {
     if(this.originalLanguage == 'English') {
       noFill()
     } else {
-      stroke(100)
-      fill(100)
+      stroke(0, 50)
+      fill(0, 50)
     }
     circle(0 , this.midpointOfBar , tr)
     fill(50)
