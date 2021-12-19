@@ -4,13 +4,11 @@ from io import StringIO
 import json
 import csv
 
-directory = './data/movies_tmdbMeta.csv'
 
-f = open("./data/movie_results.csv" ,"w+")
+f = open("./data/movie_results.csv" ,"r")
 i = 0
 
-with open(directory, 'r', encoding='utf-8') as csvfile:
-     df = pd.read_csv(directory, low_memory=False)
-     df.drop(df[df.vote_count <= 3].index, inplace=True)
-     df.to_csv(f)
+df = pd.read_csv(f, low_memory=False)
+# df.drop(df[df.vote_count <= 3].index, inplace=True)
+print(df.groupby('original_language' ).count().to_string())
 

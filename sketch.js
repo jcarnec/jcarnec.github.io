@@ -419,14 +419,27 @@ class Bar {
     // Draw rating
     fill(50);
     let k = BarChart.xOffsetOfBar - w / 2;
-    strokeWeight(0.5);
+    strokeWeight(1);
+    stroke(0)
+
+    let tr = Bar.barLength * ( this.runtime / 90);
+    if(this.originalLanguage == 'English') {
+      noFill()
+    } else {
+      stroke(100)
+      fill(100)
+    }
+    circle(0 , this.midpointOfBar , tr)
+    fill(50)
+    stroke(220)
+    strokeWeight(0.5)
     text(this.voteAverage, k, y, w, h);
   }
 
   draw() {
     stroke(220);
     fill(this.colorGlobal);
-    rect(Bar.posXOfBar, this.posYOfBar, this.barWidth, Bar.barLength);
+    rect(Bar.posXOfBar, this.posYOfBar, this.barWidth, Bar.barLength );
     fill(51);
     this.drawText();
     this.drawGenres();
@@ -447,8 +460,8 @@ class Bar {
     if (float(this.rbRatio) < 1) stroke(color(155, 0, 0));
     circle(x + 100, y, this.rbRatioArea);
     strokeWeight(0);
-    if (float(this.rbRatio) > 1) fill(color(0, 155, 0));
-    if (float(this.rbRatio) < 1) fill(color(155, 0, 0));
+    if (float(this.rbRatio) > 1) fill(color(0, 155, 0, 180));
+    if (float(this.rbRatio) < 1) fill(color(155, 0, 0, 180));
     text("x" + this.rbRatio, x + 100, y);
     stroke(220);
     fill(0);
@@ -508,7 +521,7 @@ class BarChartCanvas {
     1;
 
   static get centerTextY() {
-    return (fontSize / 2) * -1;
+    return (fontSize / 2) * -0.6;
   }
 }
 
@@ -739,6 +752,9 @@ class Legend {
         textSize(20);
         strokeWeight(0);
         text("Currently showing " + s + ".", x + w / 2, y + h + 255);
+      } else {
+        stroke(color(0,0,255, 200))
+        text("Click on an actor/director to view his'/her's filmography",x + w / 2, y + h + 255);
       }
       textSize(fontSize);
     }
@@ -845,20 +861,20 @@ function draw() {
     "Year",
     BarChartCanvas.width -
       BarChart.paddingFromCanvasX -
-      Bar.maximumWidth / 2 +
-      10,
+      Bar.maximumWidth / 2 -
+      15,
     25,
     Bar.maximumWidth
   );
   strokeWeight(0);
   textSize(9);
   text(
-    "Year Gap",
+    "gap",
     BarChartCanvas.width -
       BarChart.paddingFromCanvasX -
       Bar.maximumWidth / 2 -
-      20,
-    30,
+      35,
+    28,
     Bar.maximumWidth
   );
 
