@@ -311,7 +311,7 @@ class Bar {
     let rbRatio = row.obj.revenue_divide_budget;
     if (rbRatio) {
       this.rbRatio = parseFloat(rbRatio).toFixed(2);
-      this.rbRatioArea = float(this.rbRatio) ** 0.5 * 10;
+      this.rbRatioArea = (float(this.rbRatio) ** 0.5) * 20;
     } else this.rbRatio = "";
 
     let budget = row.obj.budget;
@@ -724,7 +724,7 @@ class Legend {
       } else {
         fill(0);
         text(
-          "No movie selected, select a movie to show more info!",
+          "No movie selected, click on a movie bar to show more info!",
           x,
           y + h / 3,
           w,
