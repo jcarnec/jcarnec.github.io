@@ -3,8 +3,8 @@ const languageNames = new Intl.DisplayNames(["en"], {
   type: "language",
 });
 const API_KEY = "e316601ca43413563469752bc6096a5b";
-// const TABLE_PATH = "/data/devMovies.csv";
-const TABLE_PATH = "/data/movie_results.csv";
+const TABLE_PATH = "/data/devMovies.csv";
+// const TABLE_PATH = "/data/movie_results.csv";
 const MAX_POPULARITY = 150;
 let barInfoBeingDisplayed = null;
 let twcb;
@@ -736,8 +736,9 @@ class Legend {
         strokeWeight(0.5);
       } else {
         fill(0);
+        textSize(fontSize * 1.5)
         text(
-          "No movie selected, click on a movie bar to show more info!",
+          "No movie selected, click on a movie's rating bar to show more info!",
           x,
           y + h / 3,
           w,
@@ -754,7 +755,7 @@ class Legend {
         text("Currently showing " + s + ".", x + w / 2, y + h + 255);
       } else {
         stroke(color(0,0,255, 200))
-        text("Click on an actor/director to view his'/her's filmography",x + w / 2, y + h + 255);
+        text("Click on an actor/director to view his/her filmography",x + w / 2, y + h + 255);
       }
       textSize(fontSize);
     }
@@ -811,13 +812,40 @@ function draw() {
   }
 
   strokeWeight(0);
-  textAlign(CENTER);
+  textAlign(LEFT);
   fill(255);
   rect(0, 0, BarChartCanvas.width, 50);
   strokeWeight(0.5);
   fill(0);
-  textSize(12);
+  textSize(9);
 
+  text(
+    "Radius = Runtime",
+    5,
+    15,
+    BarChart.xOffsetOfBar - Bar.posXOfColumn - 5
+  );
+
+
+  text(
+    "White = In English",
+    5,
+    25,
+    BarChart.xOffsetOfBar - Bar.posXOfColumn - 5
+  );
+ 
+  text(
+    "Grey = Not in English",
+    5,
+    35,
+    BarChart.xOffsetOfBar - Bar.posXOfColumn - 5
+  );
+
+
+
+
+  textAlign(CENTER);
+  textSize(12);
   text(
     "Title",
     Bar.posXOfColumn,
