@@ -231,7 +231,7 @@ class BarChart {
         if (bar.yearOfRelease !== prev || index == 0) {
           const aboveBar = bar.posYOfBar - BarChart.spacingBetweenBars / 2;
           strokeWeight(1);
-          stroke(100);
+          stroke(0);
           fill(20);
           // @ts-ignore
           drawingContext.setLineDash([5, 15]);
@@ -266,6 +266,24 @@ class BarChart {
 
           prev = bar.yearOfRelease;
           strokeWeight(0.5);
+        } else {
+          const aboveBar = bar.posYOfBar - BarChart.spacingBetweenBars / 2;
+          strokeWeight(0.5);
+          stroke(100, 100);
+          fill(20);
+          // @ts-ignore
+          drawingContext.setLineDash([5, 15]);
+          line(
+            BarChart.paddingFromCanvasX,
+            aboveBar,
+            BarChartCanvas.width - BarChart.paddingFromCanvasX,
+            aboveBar
+          );
+
+          fill(0, 255);
+          strokeWeight(0);
+          // @ts-ignore
+          drawingContext.setLineDash([]);
         }
       }
     }
@@ -449,10 +467,11 @@ class Bar {
     // textAlign(LEFT)
     let x = Bar.posXOfBar + Bar.maximumWidth + Bar.budgetPadding + 100;
     let y = this.midpointOfBar;
+    let yText = this.midpointOfBar - BarChartCanvas.centerTextY * 1.4;
     stroke(0);
     fill(0, 150);
     strokeWeight(0);
-    if (this.budget) text("$" + this.budget.toLocaleString("en-US"), x, y);
+    if (this.budget) text("$" + this.budget.toLocaleString("en-US"), x, yText);
     strokeWeight(1);
     noFill();
     circle(x, y, this.budgetArea);
@@ -462,7 +481,7 @@ class Bar {
     strokeWeight(0);
     if (float(this.rbRatio) > 1) fill(color(0, 155, 0, 180));
     if (float(this.rbRatio) < 1) fill(color(155, 0, 0, 180));
-    text("x" + this.rbRatio, x + 100, y);
+    text("x" + this.rbRatio, x + 100, yText);
     stroke(220);
     fill(0);
     textAlign(CENTER);
@@ -484,7 +503,7 @@ class Bar {
 
   drawGenres() {
     let x = Bar.posXOfBar + Bar.maximumWidth + Bar.genrePadding;
-    let y = this.midpointOfBar;
+    let y = this.midpointOfBar - BarChartCanvas.centerTextY * 1.4;
     strokeWeight(0);
     textSize(13);
     textAlign(LEFT);
@@ -513,7 +532,7 @@ class Bar {
 }
 
 class BarChartCanvas {
-  static numberOfRows = 22;
+  static numberOfRows = 21;
   static width = 1240;
   static height =
     BarChartCanvas.numberOfRows * Bar.ySpaceTakenByEachBar +
@@ -574,7 +593,7 @@ class Legend {
 
       fill(250);
       stroke(100);
-      strokeWeight(1);
+      strokeWeight(0.3);
       let x = Legend.xPos + Legend.paddingY;
       let y = Legend.yPos + Legend.paddingY + Legend.paddingY * 2;
       let w = Legend.width - Legend.paddingX * 2;
@@ -728,20 +747,21 @@ class Legend {
           );
         }
         textAlign(LEFT)
-        let ts = int(min(14, 7500 / barInfoBeingDisplayed.overview.length));
+        let ts = int(min(12, 7500 / barInfoBeingDisplayed.overview.length));
         textSize(ts)
         text(barInfoBeingDisplayed.overview, x + 15, y + h + subPadding * 1, w - 30, h + 240);
         textSize(fontSize)
         textAlign(CENTER)
         strokeWeight(0.5);
       } else {
+        strokeWeight(0.2);
         fill(0);
         textSize(fontSize * 1.5)
         text(
           "No movie selected, click on a movie's rating bar to show more info!",
           x,
           y + h / 3,
-          w,
+          w - 5,
           h
         );
       }
@@ -750,12 +770,16 @@ class Legend {
         let s = "";
         if (bc.directorBeingShown) s = "director: " + bc.directorBeingShown;
         else if (bc.actorBeingShown) s = "actor: " + bc.actorBeingShown;
-        textSize(20);
+        textSize(10);
+        fill(0,0,255,250)
         strokeWeight(0);
         text("Currently showing " + s + ".", x + w / 2, y + h + 255);
       } else {
-        stroke(color(0,0,255, 200))
-        text("Click on an actor/director to view his/her filmography",x + w / 2, y + h + 255);
+        textSize(10);
+        fill(20,20,255,250)
+        strokeWeight(0)
+        stroke(color(20,20,255, 200))
+        text("Click on an actor/director to view his/her filmography",x + w / 2, BarChartCanvas.height - 10);
       }
       textSize(fontSize);
     }
@@ -894,8 +918,19 @@ function draw() {
     25,
     Bar.maximumWidth
   );
+
+  text(
+    bc.barsBeingShown[0].yearOfRelease,
+    BarChartCanvas.width -
+      BarChart.paddingFromCanvasX -
+      Bar.maximumWidth / 2 + 45,
+    25,
+    Bar.maximumWidth
+  );
+
   strokeWeight(0);
   textSize(9);
+
   text(
     "gap",
     BarChartCanvas.width -
