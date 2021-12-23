@@ -778,7 +778,9 @@ class Legend {
         textSize(10);
         fill(0, 0, 255, 250);
         strokeWeight(0);
-        text("Currently showing " + s + ".", x + w / 2, y + h + 255);
+        text("Currently showing " + s + ".", x + w / 2, 
+          BarChartCanvas.height - 10
+);
       } else {
         textSize(10);
         fill(20, 20, 255, 250);
