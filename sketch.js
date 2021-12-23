@@ -88,7 +88,7 @@ class BarChart {
     let maxYear = int(this.params.maxYear);
     let minRating = float(this.params.minRating);
     let maxRating = float(this.params.maxRating);
-    let originalLanguage = new RegExp(this.params.originalLanguage, "i")
+    let originalLanguage = new RegExp(this.params.originalLanguage, "i");
 
     const result = [];
 
@@ -147,28 +147,27 @@ class BarChart {
             if (yearOfRelease > maxYear) addRow = false;
           }
 
-
           if (this.params.minRating) {
-            let rating = float(
-              row.obj.vote_average
-            );
+            let rating = float(row.obj.vote_average);
             if (rating < minRating) addRow = false;
           }
 
           if (this.params.maxRating) {
-            let rating = float(
-              row.obj.vote_average
-            );
+            let rating = float(row.obj.vote_average);
             if (rating > maxRating) addRow = false;
           }
 
-          if(this.params.originalLanguage) {
+          if (this.params.originalLanguage) {
             try {
-              if(!originalLanguage.exec(languageNames.of(row.obj.original_language))) {
-                addRow = false
+              if (
+                !originalLanguage.exec(
+                  languageNames.of(row.obj.original_language)
+                )
+              ) {
+                addRow = false;
               }
             } catch {
-              addRow = false
+              addRow = false;
             }
           }
 
@@ -329,7 +328,7 @@ class Bar {
     let rbRatio = row.obj.revenue_divide_budget;
     if (rbRatio) {
       this.rbRatio = parseFloat(rbRatio).toFixed(2);
-      this.rbRatioArea = (float(this.rbRatio) ** 0.5) * 20;
+      this.rbRatioArea = float(this.rbRatio) ** 0.5 * 20;
     } else this.rbRatio = "";
 
     let budget = row.obj.budget;
@@ -438,26 +437,26 @@ class Bar {
     fill(50);
     let k = BarChart.xOffsetOfBar - w / 2;
     strokeWeight(1);
-    stroke(0)
+    stroke(0);
 
-    let tr = Bar.barLength * ( this.runtime / 90);
-    if(this.originalLanguage == 'English') {
-      noFill()
+    let tr = Bar.barLength * (this.runtime / 90);
+    if (this.originalLanguage == "English") {
+      noFill();
     } else {
-      stroke(0, 50)
-      fill(0, 50)
+      stroke(0, 50);
+      fill(0, 50);
     }
-    circle(0 , this.midpointOfBar , tr)
-    fill(50)
-    stroke(220)
-    strokeWeight(0.5)
+    circle(0, this.midpointOfBar, tr);
+    fill(50);
+    stroke(220);
+    strokeWeight(0.5);
     text(this.voteAverage, k, y, w, h);
   }
 
   draw() {
     stroke(220);
     fill(this.colorGlobal);
-    rect(Bar.posXOfBar, this.posYOfBar, this.barWidth, Bar.barLength );
+    rect(Bar.posXOfBar, this.posYOfBar, this.barWidth, Bar.barLength);
     fill(51);
     this.drawText();
     this.drawGenres();
@@ -572,7 +571,7 @@ class Legend {
 
       textAlign("center");
 
-      strokeWeight(1.5)
+      strokeWeight(1.5);
       text(
         "Popularity",
         x + w / 2,
@@ -746,17 +745,23 @@ class Legend {
             w
           );
         }
-        textAlign(LEFT)
+        textAlign(LEFT);
         let ts = int(min(12, 7500 / barInfoBeingDisplayed.overview.length));
-        textSize(ts)
-        text(barInfoBeingDisplayed.overview, x + 15, y + h + subPadding * 1, w - 30, h + 240);
-        textSize(fontSize)
-        textAlign(CENTER)
+        textSize(ts);
+        text(
+          barInfoBeingDisplayed.overview,
+          x + 15,
+          y + h + subPadding * 1,
+          w - 30,
+          h + 240
+        );
+        textSize(fontSize);
+        textAlign(CENTER);
         strokeWeight(0.5);
       } else {
         strokeWeight(0.2);
         fill(0);
-        textSize(fontSize * 1.5)
+        textSize(fontSize * 1.5);
         text(
           "No movie selected, click on a movie's rating bar to show more info!",
           x,
@@ -771,15 +776,19 @@ class Legend {
         if (bc.directorBeingShown) s = "director: " + bc.directorBeingShown;
         else if (bc.actorBeingShown) s = "actor: " + bc.actorBeingShown;
         textSize(10);
-        fill(0,0,255,250)
+        fill(0, 0, 255, 250);
         strokeWeight(0);
         text("Currently showing " + s + ".", x + w / 2, y + h + 255);
       } else {
         textSize(10);
-        fill(20,20,255,250)
-        strokeWeight(0)
-        stroke(color(20,20,255, 200))
-        text("Click on an actor/director to view his/her filmography",x + w / 2, BarChartCanvas.height - 10);
+        fill(20, 20, 255, 250);
+        strokeWeight(0);
+        stroke(color(20, 20, 255, 200));
+        text(
+          "Click on an actor/director to view his/her filmography",
+          x + w / 2,
+          BarChartCanvas.height - 10
+        );
       }
       textSize(fontSize);
     }
@@ -843,13 +852,7 @@ function draw() {
   fill(0);
   textSize(9);
 
-  text(
-    "Radius = Runtime",
-    5,
-    15,
-    BarChart.xOffsetOfBar - Bar.posXOfColumn - 5
-  );
-
+  text("Radius = Runtime", 5, 15, BarChart.xOffsetOfBar - Bar.posXOfColumn - 5);
 
   text(
     "White = In English",
@@ -857,16 +860,13 @@ function draw() {
     25,
     BarChart.xOffsetOfBar - Bar.posXOfColumn - 5
   );
- 
+
   text(
     "Grey = Not in English",
     5,
     35,
     BarChart.xOffsetOfBar - Bar.posXOfColumn - 5
   );
-
-
-
 
   textAlign(CENTER);
   textSize(12);
@@ -919,15 +919,17 @@ function draw() {
     Bar.maximumWidth
   );
 
-  text(
-    bc.barsBeingShown[0].yearOfRelease,
-    BarChartCanvas.width -
-      BarChart.paddingFromCanvasX -
-      Bar.maximumWidth / 2 + 45,
-    25,
-    Bar.maximumWidth
-  );
-
+  try {
+    text(
+      bc.barsBeingShown[0].yearOfRelease,
+      BarChartCanvas.width -
+        BarChart.paddingFromCanvasX -
+        Bar.maximumWidth / 2 +
+        45,
+      25,
+      Bar.maximumWidth
+    );
+  } catch {}
   strokeWeight(0);
   textSize(9);
 
