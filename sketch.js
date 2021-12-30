@@ -696,7 +696,7 @@ class Legend {
             y + (h * 2) / 3 + (barInfoBeingDisplayed.cast.length + 2) * 20 + 10,
           content: barInfoBeingDisplayed.director,
         });
-        fill(0);
+        fill(0, 0, 255, 150);
         text(barInfoBeingDisplayed.title, x, y + subPadding, w, h);
         fill(0, 100);
         let p = 0;
@@ -1065,8 +1065,8 @@ function mouseClicked() {
         }
       });
 
-      if(mouseX > Legend.xPos + Legend.paddingY && mouseX < Legend.xPos + Legend.paddingY + Legend.width - Legend.paddingX * 2) {
-        if(mouseY > Legend.yPos + Legend.paddingY + Legend.paddingY * 2 + Legend.paddingY / 3 && mouseY < Legend.yPos + Legend.paddingY + Legend.paddingY * 2 + Legend.paddingY / 3 + Legend.paddingY * 0.5) {
+      if(mouseX > Legend.xPos + Legend.paddingY  && mouseX < Legend.xPos + Legend.paddingY + Legend.width - Legend.paddingX * 2) {
+        if(mouseY > Legend.yPos + Legend.paddingY + Legend.paddingY * 2 - 10 + Legend.paddingY / 3 && mouseY < Legend.yPos + Legend.paddingY + Legend.paddingY * 2 + Legend.paddingY / 3 + Legend.paddingY * 0.5) {
           let s = 'https://www.youtube.com/results?search_query=' + barInfoBeingDisplayed.title + '+' + barInfoBeingDisplayed.yearOfRelease + '+film+trailer' 
           window.open(s, '_blank')
         }
