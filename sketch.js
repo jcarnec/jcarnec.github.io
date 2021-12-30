@@ -1064,6 +1064,13 @@ function mouseClicked() {
           }
         }
       });
+
+      if(mouseX > Legend.xPos + Legend.paddingY && mouseX < Legend.xPos + Legend.paddingY + Legend.width - Legend.paddingX * 2) {
+        if(mouseY > Legend.yPos + Legend.paddingY + Legend.paddingY * 2 + Legend.paddingY / 3 && mouseY < Legend.yPos + Legend.paddingY + Legend.paddingY * 2 + Legend.paddingY / 3 + Legend.paddingY * 0.5) {
+          let s = 'https://www.youtube.com/results?search_query=' + barInfoBeingDisplayed.title + '+' + barInfoBeingDisplayed.yearOfRelease + '+film+trailer' 
+          window.open(s, '_blank')
+        }
+      }
     }
   }
 }
